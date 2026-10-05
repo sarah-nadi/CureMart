@@ -6,7 +6,7 @@ interface GallerySlide {
   alt: string;
   badge?: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }
 
 @Component({
@@ -24,6 +24,38 @@ export class ProductGallery {
 
   // ⚠️ الصور والعناوين دي placeholders، غيّريها بصورك الحقيقية
 readonly slides: GallerySlide[] = [
+  {
+    image: 'WhatsApp Image 2026-10-06 at 1.26.38 AM.jpeg',
+    alt: 'علبة وأنبوب بايل فاج',
+    badge: 'شهاده اعتماد الجودة',
+    title: 'بايل فاج (Pile Phage)',
+    subtitle: 'معتمد من الهيئه العربية لتنظيم المنتجات الطبية',
+  },
+  {
+    image: 'WhatsApp Image 2026-10-05 at 9.41.28 PM (1).jpeg',
+    alt: 'علبة وأنبوب بايل فاج',
+    title: 'بايل فاج (Pile Phage)',
+    subtitle: 'Remus Germany • 50 جرام',
+  },
+  {
+    image: 'WhatsApp Image 2026-10-05 at 9.42.16 PM.jpeg',
+    alt: 'علبة وأنبوب بايل فاج',
+    title: 'بايل فاج (Pile Phage)',
+    subtitle: 'Remus Germany • 50 جرام',
+  },
+  {
+    image: 'WhatsApp Image 2026-10-05 at 9.41.30 PM.jpeg',
+    alt: 'علبة وأنبوب بايل فاج',
+    title: 'بايل فاج (Pile Phage)',
+    subtitle: 'Remus Germany • 50 جرام',
+  },
+
+  {
+    image: 'WhatsApp Image 2026-10-05 at 9.41.31 PM.jpeg',
+    alt: 'علبة وأنبوب بايل فاج',
+    title: 'بايل فاج (Pile Phage)',
+    subtitle: 'Remus Germany • 50 جرام',
+  },
   {
     image: 'Gemini_Generated_Image_6ssppv6ssppv6ssp.jpg',
     alt: 'علبة وأنبوب بايل فاج',

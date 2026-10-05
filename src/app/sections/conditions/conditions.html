@@ -1,0 +1,48 @@
+<section id="conditions" class="cond" aria-labelledby="cond-title">
+  <div class="cond__inner">
+    <header class="cond__head">
+      <span class="pill">{{ badge }}</span>
+      <h2 id="cond-title" class="cond__title">{{ title }}</h2>
+      <p class="cond__subtitle">{{ subtitle }}</p>
+    </header>
+
+    <ul class="grid">
+      @for (c of conditions; track c.title) {
+        <li class="card">
+          <span class="card__icon" aria-hidden="true">
+            @switch (c.icon) {
+              @case ('internal') {
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <circle cx="12" cy="12" r="2.5" />
+                </svg>
+              }
+              @case ('external') {
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <circle cx="12" cy="12" r="4.5" />
+                  <circle cx="12" cy="12" r="1" fill="currentColor" />
+                </svg>
+              }
+              @case ('fissure') {
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 19V9l6 4 8-7" />
+                  <path d="M15 6h4v4" />
+                </svg>
+              }
+              @case ('fistula') {
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 8h14M14 4l4 4-4 4" />
+                  <path d="M20 16H6M10 12l-4 4 4 4" />
+                </svg>
+              }
+            }
+          </span>
+
+          <h3 class="card__title">{{ c.title }}</h3>
+          <p class="card__text">{{ c.text }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

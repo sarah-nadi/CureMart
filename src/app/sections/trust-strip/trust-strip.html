@@ -1,0 +1,36 @@
+<section class="trust" aria-label="ضمانات الجودة والمتابعة">
+  <ul class="trust__bar">
+    @for (item of items; track item.title) {
+      <li class="item">
+        <span class="item__icon" [class]="'item__icon tone--' + item.tone" aria-hidden="true">
+          @switch (item.icon) {
+            @case ('badge') {
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.5l2.4 1.6 2.9-.1 1 2.7 2.4 1.7-.8 2.8.8 2.8-2.4 1.7-1 2.7-2.9-.1L12 21.5l-2.4-1.6-2.9.1-1-2.7-2.4-1.7.8-2.8-.8-2.8 2.4-1.7 1-2.7 2.9.1z" />
+                <path d="M8.8 12.3l2.3 2.3 4.2-4.6" />
+              </svg>
+            }
+            @case ('flag') {
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 21V4M5 5h12l-2 4 2 4H5" />
+              </svg>
+            }
+            @case ('support') {
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 14v-2a8 8 0 0116 0v2" />
+                <rect x="3" y="14" width="4" height="6" rx="1.5" />
+                <rect x="17" y="14" width="4" height="6" rx="1.5" />
+                <path d="M19 20c0 1.4-1.8 2-4 2h-2" />
+              </svg>
+            }
+          }
+        </span>
+
+        <div class="item__body">
+          <h3 class="item__title">{{ item.title }}</h3>
+          <p class="item__text">{{ item.text }}</p>
+        </div>
+      </li>
+    }
+  </ul>
+</section>

@@ -1,0 +1,107 @@
+<section id="doctors" class="doc" aria-labelledby="doc-title">
+  <div class="doc__inner">
+    <header class="doc__head">
+      <span class="pill">{{ badge }}</span>
+      <h2 id="doc-title" class="doc__title">{{ title }}</h2>
+      <p class="doc__subtitle">{{ subtitle }}</p>
+    </header>
+
+    <div class="deck" role="region" aria-roledescription="carousel" aria-label="آراء الأطباء" tabindex="0">
+      <div
+        class="deck__stage"
+        (pointerdown)="onPointerDown($event)"
+        (pointerup)="onPointerUp($event)"
+        (pointercancel)="onPointerCancel()"
+      >
+        @for (s of slides; track s.label) {
+          <article
+            class="slide"
+            [class.is-active]="$index === index()"
+            [style]="slideStyle($index)"
+            [attr.aria-hidden]="$index !== index()"
+            (click)="onSlideClick($index)"
+          >
+            <div class="media">
+              @if (playing() === $index && s.videoSrc) {
+                <video
+                  class="media__video"
+                  [src]="s.videoSrc"
+                  [attr.poster]="s.poster ?? null"
+                  controls
+                  autoplay
+                  playsinline
+                  (pointerdown)="$event.stopPropagation()"
+                ></video>
+              } @else {
+                <div class="media__cover">
+                  <svg class="media__mark" viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 3l7 2.6V11c0 4.4-3 8.2-7 9.6-4-1.4-7-5.2-7-9.6V5.6L12 3z" />
+                  </svg>
+
+                  <button
+                    type="button"
+                    class="media__play"
+                    aria-label="تشغيل الفيديو"
+                    [attr.aria-disabled]="!s.videoSrc"
+                    (click)="onPlay($index)"
+                  >
+                    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true">
+                      <path d="M8 5.5v13l11-6.5z" />
+                    </svg>
+                  </button>
+
+                  <div class="media__text">
+                    <span class="media__label">{{ s.label }}</span>
+                    <p>{{ s.topic }}</p>
+                  </div>
+
+                  <span class="media__time" dir="ltr">{{ s.duration }}</span>
+                </div>
+              }
+            </div>
+
+            <div class="who">
+              <div class="who__text">
+                <span class="who__aff">{{ s.affiliation }}</span>
+              </div>
+              <span class="who__check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M8.5 12.5l2.5 2.5 4.5-5" />
+                </svg>
+              </span>
+            </div>
+          </article>
+        }
+      </div>
+
+      <div class="deck__controls">
+        <button type="button" class="deck__arrow" aria-label="السابق" (click)="go(-1)">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+        <div class="deck__dots" role="tablist">
+          @for (s of slides; track s.label) {
+            <button
+              type="button"
+              role="tab"
+              class="deck__dot"
+              [class.is-active]="$index === index()"
+              [attr.aria-selected]="$index === index()"
+              [attr.aria-label]="'الطبيب ' + ($index + 1)"
+              (click)="goTo($index)"
+            ></button>
+          }
+        </div>
+
+        <button type="button" class="deck__arrow" aria-label="التالي" (click)="go(1)">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

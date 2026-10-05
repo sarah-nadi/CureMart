@@ -1,0 +1,92 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  /* Primary / Secondary / Tertiary (DESIGN.md) */
+  --cm-primary: #0b463e;
+  --cm-primary-deep: #06312b;
+  --cm-secondary: #0f766e;
+  --cm-tertiary: #d97706;
+  --cm-tertiary-hover: #b45309;
+
+  /* Neutrals */
+  --cm-ink: #0f172a;
+  --cm-ink-muted: #475569;
+  --cm-surface: #fbfbfa;
+  --cm-surface-low: #f4f7f5;
+  --cm-sage: #e6f4f1;
+  --cm-white: #ffffff;
+  --cm-border: #e2e8f0;
+  --cm-outline: #cbd5e1;
+  --cm-card-border: rgba(15, 118, 110, 0.12);
+
+  /* Radius */
+  --cm-radius: 0.5rem;
+  --cm-radius-lg: 1rem;
+  --cm-radius-xl: 1.5rem;
+  --cm-radius-full: 9999px;
+
+  /* Elevation */
+  --cm-shadow-1: 0 2px 8px -2px rgba(11, 70, 62, 0.04), 0 1px 3px 0 rgba(11, 70, 62, 0.02);
+  --cm-shadow-2: 0 12px 24px -6px rgba(11, 70, 62, 0.08), 0 4px 8px -2px rgba(11, 70, 62, 0.04);
+  --cm-shadow-3: 0 20px 32px -8px rgba(6, 49, 43, 0.16);
+
+  /* Fonts (Arabic-first, Latin fallback) */
+  --cm-font-heading: 'Cairo', 'Plus Jakarta Sans', sans-serif;
+  --cm-font-body: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+
+  /* Layout */
+  --cm-max: 1320px;
+  --cm-margin: 3rem;
+  --cm-gutter: 1.5rem;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --cm-margin: 1.25rem;
+    --cm-gutter: 1rem;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cm-surface);
+  color: var(--cm-ink);
+  font-family: var(--cm-font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--cm-font-heading);
+  color: var(--cm-ink);
+  margin: 0;
+}
+
+/* Arabic: no letter-spacing so ligatures stay connected */
+html[dir='rtl'] * {
+  letter-spacing: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

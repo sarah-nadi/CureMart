@@ -1,0 +1,72 @@
+<section id="gallery" class="gallery" aria-labelledby="gallery-title">
+  <div class="gallery__inner">
+    <header class="gallery__head">
+      <span class="pill">{{ badge }}</span>
+      <h2 id="gallery-title" class="gallery__title">{{ title }}</h2>
+      <p class="gallery__subtitle">{{ subtitle }}</p>
+    </header>
+
+    <div class="deck" role="region" aria-roledescription="carousel" aria-label="صور المنتج" tabindex="0">
+      <div
+        class="deck__stage"
+        (pointerdown)="onPointerDown($event)"
+        (pointerup)="onPointerUp($event)"
+        (pointercancel)="onPointerCancel()"
+      >
+        @for (s of slides; track s.image) {
+          <article
+            class="slide"
+            [class.is-active]="$index === index()"
+            [style]="slideStyle($index)"
+            [attr.aria-hidden]="$index !== index()"
+            (click)="onSlideClick($index)"
+          >
+            <div class="slide__media">
+              <img
+                [src]="s.image"
+                [alt]="s.alt"
+                [attr.loading]="$index === 0 ? 'eager' : 'lazy'"
+                draggable="false"
+              />
+              @if (s.badge) {
+                <span class="slide__badge">{{ s.badge }}</span>
+              }
+            </div>
+            <div class="slide__caption">
+              <strong>{{ s.title }}</strong>
+              <span>{{ s.subtitle }}</span>
+            </div>
+          </article>
+        }
+      </div>
+
+      <div class="deck__controls">
+        <button type="button" class="deck__arrow" aria-label="السابق" (click)="go(-1)">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+        <div class="deck__dots" role="tablist">
+          @for (s of slides; track s.image) {
+            <button
+              type="button"
+              role="tab"
+              class="deck__dot"
+              [class.is-active]="$index === index()"
+              [attr.aria-selected]="$index === index()"
+              [attr.aria-label]="'الصورة ' + ($index + 1)"
+              (click)="goTo($index)"
+            ></button>
+          }
+        </div>
+
+        <button type="button" class="deck__arrow" aria-label="التالي" (click)="go(1)">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

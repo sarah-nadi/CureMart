@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.5rem var(--cm-margin);
+  background: var(--cm-primary-deep);
+  color: var(--cm-white);
+}
+
+.bar__badge {
+  flex-shrink: 0;
+  padding: 0.125rem 0.75rem;
+  border-radius: var(--cm-radius-full);
+  background: var(--cm-sage);
+  color: var(--cm-primary);
+  font: 600 0.75rem/1rem var(--cm-font-body);
+}
+
+.bar__text {
+  margin: 0;
+  font: 500 0.875rem/1.25rem var(--cm-font-body);
+}
+
+@media (max-width: 767px) {
+  .bar {
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+  }
+}

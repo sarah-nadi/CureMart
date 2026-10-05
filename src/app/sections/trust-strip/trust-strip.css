@@ -1,0 +1,109 @@
+:host {
+  display: block;
+}
+
+.trust {
+  padding: 0 var(--cm-margin);
+  margin-block: 0;
+  background: var(--cm-surface);
+}
+
+/* Level 3 frosted container */
+.trust__bar {
+  list-style: none;
+  max-width: var(--cm-max);
+  margin: 0 auto;
+  padding: 1.75rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--cm-radius-xl);
+  box-shadow: var(--cm-shadow-2);
+  position: relative;
+  top: -2rem; /* يتداخل شوية مع الـ section اللي قبله */
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-inline: 1.5rem;
+}
+
+/* hairline divider between items */
+.item + .item {
+  border-inline-start: 1px solid var(--cm-border);
+}
+
+.item__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: var(--cm-radius-lg);
+}
+
+.tone--mint {
+  background: #99efe5;
+  color: var(--cm-primary);
+}
+.tone--secondary {
+  background: var(--cm-secondary);
+  color: var(--cm-white);
+}
+.tone--primary {
+  background: var(--cm-primary);
+  color: var(--cm-white);
+}
+
+.item__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.item__title {
+  font-size: 1.0625rem;
+  line-height: 1.6rem;
+  font-weight: 600;
+  color: var(--cm-ink);
+}
+
+.item__text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6rem;
+  color: var(--cm-ink-muted);
+}
+
+/* Responsive */
+@media (max-width: 1199px) {
+  .trust__bar {
+    padding: 1.5rem 1.25rem;
+  }
+  .item {
+    padding-inline: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .trust__bar {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    top: 0;
+    margin-block: 1.5rem;
+  }
+  .item {
+    padding-inline: 0;
+  }
+  .item + .item {
+    border-inline-start: 0;
+    border-top: 1px solid var(--cm-border);
+    padding-top: 1.25rem;
+  }
+}

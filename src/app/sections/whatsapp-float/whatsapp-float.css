@@ -1,0 +1,78 @@
+:host {
+  position: fixed;
+  left: 1.25rem; /* شمال الشاشة فعلياً حتى في RTL */
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  z-index: 50;
+}
+
+.wa {
+  display: inline-flex;
+  align-items: center;
+  direction: ltr; /* الـ label يطلع على يمين الأيقونة */
+  gap: 0;
+  text-decoration: none;
+  color: #fff;
+}
+
+.wa__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  background: #25d366;
+  box-shadow: 0 8px 20px -4px rgba(6, 49, 43, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* حلقة نبض خفيفة */
+.wa__icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #25d366;
+  opacity: 0.45;
+  animation: wa-pulse 2.4s ease-out infinite;
+  z-index: -1;
+}
+
+@keyframes wa-pulse {
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.wa__label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-inline: 0;
+  border-radius: 9999px;
+  background: var(--cm-primary-deep);
+  font: 600 0.875rem/1.25rem var(--cm-font-body);
+  opacity: 0;
+  transition: max-width 0.3s ease, padding 0.3s ease, margin 0.3s ease, opacity 0.2s ease;
+}
+
+.wa:hover .wa__icon,
+.wa:focus-visible .wa__icon {
+  transform: scale(1.06);
+  box-shadow: 0 12px 24px -4px rgba(6, 49, 43, 0.45);
+}
+
+.wa:hover .wa__label,
+.wa:focus-visible .wa__label {
+  max-width: 10rem;
+  margin-inline-start: 0.5rem;
+  padding: 0.5rem 1rem;
+  opacity: 1;
+}
+
+.wa:focus-visible {
+  outline: 2px solid var(--cm-secondary);
+  outline-offset: 4px;
+  border-radius: 9999px;
+}

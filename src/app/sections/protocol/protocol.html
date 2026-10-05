@@ -1,0 +1,44 @@
+<section id="protocol" class="proto" aria-labelledby="proto-title">
+  <div class="proto__inner">
+    <header class="proto__head">
+      <span class="pill">{{ badge }}</span>
+      <h2 id="proto-title" class="proto__title">{{ title }}</h2>
+      <p class="proto__subtitle">{{ subtitle }}</p>
+    </header>
+
+    <ol class="grid">
+      @for (s of steps; track s.no) {
+        <li class="card" [class.card--featured]="s.featured">
+          <span class="card__no" aria-hidden="true">{{ s.no }}</span>
+
+          <span class="card__tag">{{ s.tag }}</span>
+          <h3 class="card__title">{{ s.title }}</h3>
+          <p class="card__text">{{ s.text }}</p>
+
+          <p class="card__foot">
+            @switch (s.icon) {
+              @case ('calendar') {
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3.5" y="5" width="17" height="15" rx="2" />
+                  <path d="M3.5 10h17M8 3v4M16 3v4" />
+                </svg>
+              }
+              @case ('thumb') {
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 11v9H4v-9zM7 11l4-7a2 2 0 012 2v4h5.5a2 2 0 012 2.3l-1.2 6A2 2 0 0117.3 20H7" />
+                </svg>
+              }
+              @case ('shield') {
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3l7 2.6V11c0 4.4-3 8.2-7 9.6-4-1.4-7-5.2-7-9.6V5.6L12 3z" />
+                  <path d="M9 12l2 2 4-4" />
+                </svg>
+              }
+            }
+            {{ s.foot }}
+          </p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>

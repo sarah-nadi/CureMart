@@ -1,0 +1,212 @@
+<section id="order" class="ord" aria-labelledby="ord-title">
+  <div class="ord__inner">
+    <header class="ord__head">
+      <span class="pill">{{ badge }}</span>
+      <h2 id="ord-title" class="ord__title">{{ title }}</h2>
+      <p class="ord__subtitle">{{ subtitle }}</p>
+    </header>
+
+    <div class="ord__grid">
+      <!-- Info column (right in RTL) -->
+      <aside class="aside">
+        <div class="card guide">
+          <h3 class="guide__title">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 11v5M12 8h.01" />
+            </svg>
+            دليل تحديد الجرعة المناسبة
+          </h3>
+
+          <ul class="guide__list">
+            <li>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M8.5 12.5l2.5 2.5 4.5-5" />
+              </svg>
+              <div>
+                <strong>الدرجة الأولى: عبوة واحدة</strong>
+                <p>لحالات الألم العارض والبدايات المبكرة للبواسير والتشققات السطحية.</p>
+              </div>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M8.5 12.5l2.5 2.5 4.5-5" />
+              </svg>
+              <div>
+                <strong>الدرجة الثانية والثالثة: عبوتان</strong>
+                <p>كورس متكامل لمدة 14 يوماً مرتين يومياً لعلاج التورم والنزيف المستمر.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card product">
+          <img class="product__img" src="Gemini_Generated_Image_obw62qobw62qobw6.jpg" alt="علبة بايل فاج" width="96" height="96" loading="lazy" />
+          <div class="product__body">
+            <strong>بايل فاج (Pile Phage)</strong>
+            <span class="product__meta">صناعة ألمانية • Remus Germany • 50 جرام</span>
+            <div class="product__price">
+              <b>540 جنيه</b>
+              <s>750 جنيه</s>
+            </div>
+          </div>
+        </div>
+
+        <p class="privacy">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 6h11v10H3zM14 9h4l3 3v4h-7z" />
+            <circle cx="7" cy="17.5" r="1.8" />
+            <circle cx="17" cy="17.5" r="1.8" />
+          </svg>
+          تغليف كرتوني سري ومغلق تماماً لخصوصيتك الكاملة.
+        </p>
+      </aside>
+
+      <!-- Form column (left in RTL) -->
+      <div class="card formcard">
+        @if (status() === 'success') {
+          <div class="success" role="status">
+            <span class="success__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M8.5 12.5l2.5 2.5 4.5-5" />
+              </svg>
+            </span>
+            <h3>تم استلام طلبك بنجاح</h3>
+            <p>سيتواصل معك فريقنا هاتفياً خلال وقت قصير لتأكيد الطلب وترتيب الشحن.</p>
+            <button type="button" class="btn btn--secondary" (click)="newOrder()">طلب جديد</button>
+          </div>
+        } @else {
+          <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+            <fieldset class="packages">
+              <legend>اختر الباقة المناسبة لحالتك:</legend>
+
+              <div class="packages__grid">
+                @for (p of packages; track p.id) {
+                  <label class="pkg" [class.is-selected]="selected().id === p.id">
+                    <input class="pkg__input" type="radio" formControlName="package" [value]="p.id" />
+                    <span class="pkg__radio" aria-hidden="true"></span>
+                    <span class="pkg__body">
+                      <span class="pkg__title">
+                        {{ p.label }}
+                        @if (p.badge) {
+                          <span class="pkg__badge">{{ p.badge }}</span>
+                        }
+                      </span>
+                      <span class="pkg__price">{{ p.priceLabel }} جنيه شامل التوصيل</span>
+                    </span>
+                  </label>
+                }
+              </div>
+            </fieldset>
+
+            <div class="fields">
+              <div class="field" [class.is-invalid]="invalid('name')">
+                <label for="f-name">الاسم بالكامل <span class="req">*</span></label>
+                <input
+                  id="f-name"
+                  type="text"
+                  formControlName="name"
+                  autocomplete="name"
+                  placeholder="مثال: أحمد عبد الله"
+                  [attr.aria-invalid]="invalid('name')"
+                  aria-describedby="f-name-err"
+                />
+                @if (invalid('name')) {
+                  <p class="field__error" id="f-name-err">{{ errorText('name') }}</p>
+                }
+              </div>
+
+              <div class="field" [class.is-invalid]="invalid('phone')">
+                <label for="f-phone">رقم الهاتف والواتساب <span class="req">*</span></label>
+                <input
+                  id="f-phone"
+                  class="ltr"
+                  type="tel"
+                  inputmode="tel"
+                  formControlName="phone"
+                  autocomplete="tel"
+                  placeholder="010XXXXXXXX"
+                  [attr.aria-invalid]="invalid('phone')"
+                  aria-describedby="f-phone-err"
+                />
+                @if (invalid('phone')) {
+                  <p class="field__error" id="f-phone-err">{{ errorText('phone') }}</p>
+                }
+              </div>
+
+              <div class="field" [class.is-invalid]="invalid('governorate')">
+                <label for="f-gov">المحافظة <span class="req">*</span></label>
+                <select
+                  id="f-gov"
+                  formControlName="governorate"
+                  autocomplete="address-level1"
+                  [attr.aria-invalid]="invalid('governorate')"
+                  aria-describedby="f-gov-err"
+                >
+                  <option value="" disabled>اختر محافظتك</option>
+                  @for (g of governorates; track g) {
+                    <option [value]="g">{{ g }}</option>
+                  }
+                </select>
+                @if (invalid('governorate')) {
+                  <p class="field__error" id="f-gov-err">{{ errorText('governorate') }}</p>
+                }
+              </div>
+
+              <div class="field" [class.is-invalid]="invalid('address')">
+                <label for="f-address">العنوان بالتفصيل <span class="req">*</span></label>
+                <input
+                  id="f-address"
+                  type="text"
+                  formControlName="address"
+                  autocomplete="street-address"
+                  placeholder="المدينة، الحي، اسم الشارع ورقم المبنى"
+                  [attr.aria-invalid]="invalid('address')"
+                  aria-describedby="f-address-err"
+                />
+                @if (invalid('address')) {
+                  <p class="field__error" id="f-address-err">{{ errorText('address') }}</p>
+                }
+              </div>
+            </div>
+
+            <!-- honeypot -->
+            <div class="hp" aria-hidden="true">
+              <label>Website <input type="text" formControlName="website" tabindex="-1" autocomplete="off" /></label>
+            </div>
+
+            @if (status() === 'error') {
+              <p class="alert" role="alert">
+                تعذر إرسال الطلب حالياً. حاول مرة أخرى، أو اطلب مباشرة عبر
+                <a [href]="whatsappHref" target="_blank" rel="noopener noreferrer">واتساب</a>.
+              </p>
+            }
+
+            <button type="submit" class="btn btn--primary btn--block" [disabled]="status() === 'sending'">
+              @if (status() === 'sending') {
+                <span class="spinner" aria-hidden="true"></span>
+                جاري إرسال الطلب...
+              } @else {
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12.5l4.5 4.5L19 7.5" />
+                </svg>
+                اطلب Pile Phage الآن
+              }
+            </button>
+
+            <p class="note">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="6" width="18" height="12" rx="2" />
+                <circle cx="12" cy="12" r="2.5" />
+              </svg>
+              الدفع عند الاستلام متاح والشحن مجاني • فحص الشحنة قبل الدفع
+            </p>
+          </form>
+        }
+      </div>
+    </div>
+  </div>
+</section>

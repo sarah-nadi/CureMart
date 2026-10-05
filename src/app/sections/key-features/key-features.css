@@ -1,0 +1,127 @@
+:host {
+  display: block;
+}
+
+.features {
+  padding: 5rem var(--cm-margin);
+  background: var(--cm-surface-low);
+}
+
+.features__inner {
+  max-width: var(--cm-max);
+  margin-inline: auto;
+}
+
+.features__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.pill {
+  display: inline-flex;
+  padding: 0.375rem 1rem;
+  border-radius: var(--cm-radius-full);
+  background: var(--cm-sage);
+  color: var(--cm-primary);
+  font: 600 0.8125rem/1.25rem var(--cm-font-body);
+}
+
+.features__title {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--cm-primary);
+}
+
+.features__subtitle {
+  margin: 0;
+  max-width: 44rem;
+  font-size: 1.0625rem;
+  line-height: 1.75rem;
+  color: var(--cm-ink-muted);
+}
+
+/* Grid */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--cm-gutter);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.75rem 1.5rem;
+  background: var(--cm-white);
+  border: 1px solid var(--cm-card-border);
+  border-radius: var(--cm-radius-lg);
+  box-shadow: var(--cm-shadow-1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--cm-shadow-2);
+  transform: translateY(-3px);
+}
+
+.card__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.5rem;
+  border-radius: var(--cm-radius-md, 0.75rem);
+  color: var(--cm-white);
+}
+
+.tone--primary {
+  background: var(--cm-primary);
+}
+.tone--secondary {
+  background: var(--cm-secondary);
+}
+.tone--soft {
+  background: #33675e;
+}
+.tone--amber {
+  background: #613200;
+  color: #f88f28;
+}
+
+.card__title {
+  font-size: 1.0625rem;
+  line-height: 1.6rem;
+  font-weight: 600;
+  color: var(--cm-ink);
+}
+
+.card__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6rem;
+  color: var(--cm-ink-muted);
+}
+
+/* Responsive */
+@media (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .features {
+    padding-block: 3rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

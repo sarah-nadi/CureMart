@@ -1,0 +1,223 @@
+:host {
+  display: block;
+  --deck-card-w: min(22.5rem, 82vw);
+  --deck-stage-h: 27rem;
+  --peek: 2.25rem; /* الجزء الظاهر من الكروت اللي ورا */
+  --shift: calc(var(--deck-card-w) * 0.05 + var(--peek));
+}
+
+.gallery {
+  padding: 5rem var(--cm-margin);
+  background:
+    radial-gradient(50% 45% at 85% 20%, rgba(15, 118, 110, 0.07), transparent 70%),
+    var(--cm-surface);
+  overflow: hidden; /* الكروت الجانبية ما تعملش scroll أفقي */
+}
+
+.gallery__inner {
+  max-width: var(--cm-max);
+  margin-inline: auto;
+}
+
+.gallery__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.pill {
+  display: inline-flex;
+  padding: 0.375rem 1rem;
+  border-radius: var(--cm-radius-full);
+  background: var(--cm-sage);
+  color: var(--cm-primary);
+  font: 600 0.8125rem/1.25rem var(--cm-font-body);
+}
+
+.gallery__title {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--cm-primary);
+}
+
+.gallery__subtitle {
+  margin: 0;
+  max-width: 44rem;
+  font-size: 1.0625rem;
+  line-height: 1.75rem;
+  color: var(--cm-ink-muted);
+}
+
+/* Deck */
+.deck {
+  outline: none;
+}
+
+.deck:focus-visible {
+  outline: 2px solid var(--cm-secondary);
+  outline-offset: 4px;
+  border-radius: var(--cm-radius-lg);
+}
+
+.deck__stage {
+  position: relative;
+  height: var(--deck-stage-h);
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+}
+
+.deck__stage:active {
+  cursor: grabbing;
+}
+
+.slide {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  margin-inline: auto;
+  width: var(--deck-card-w);
+  padding: 0.75rem;
+  background: var(--cm-white);
+  border: 1px solid var(--cm-card-border);
+  border-radius: var(--cm-radius-xl);
+    transform: translateX(calc(var(--d) * var(--dir) * var(--shift))) scale(var(--s));
+  box-shadow: var(--cm-shadow-1);
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease,
+    box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+.slide.is-active {
+  box-shadow: var(--cm-shadow-3);
+}
+
+.slide__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--cm-radius-lg);
+  overflow: hidden;
+  background: var(--cm-surface-low);
+}
+
+.slide__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.slide__badge {
+  position: absolute;
+  inset-block-start: 0.75rem;
+  inset-inline-end: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--cm-radius-full);
+  background: var(--cm-primary);
+  color: var(--cm-white);
+  font: 500 0.75rem/1rem var(--cm-font-body);
+}
+
+.slide__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: 0.875rem 0.5rem 0.25rem;
+}
+
+.slide__caption strong {
+  font: 600 1rem/1.5rem var(--cm-font-heading);
+  color: var(--cm-ink);
+}
+
+.slide__caption span {
+  font: 400 0.875rem/1.35rem var(--cm-font-body);
+  color: var(--cm-ink-muted);
+}
+
+/* Controls */
+.deck__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.deck__arrow {
+  display: grid;
+  place-items: center;
+  width: 3rem; /* 48px touch target */
+  height: 3rem;
+  border-radius: 9999px;
+  border: 1px solid var(--cm-card-border);
+  background: var(--cm-white);
+  color: var(--cm-primary);
+  box-shadow: var(--cm-shadow-1);
+  cursor: pointer;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.deck__arrow:hover {
+  box-shadow: var(--cm-shadow-2);
+  transform: translateY(-1px);
+}
+
+.deck__arrow:focus-visible,
+.deck__dot:focus-visible {
+  outline: 2px solid var(--cm-secondary);
+  outline-offset: 3px;
+}
+
+/* السهم يتعكس في RTL عشان "السابق" يشاور ناحية مكانه */
+:host-context([dir='rtl']) .deck__arrow svg {
+  transform: scaleX(-1);
+}
+
+.deck__dots {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.deck__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--cm-outline);
+  cursor: pointer;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.25s ease;
+}
+
+.deck__dot.is-active {
+  width: 1.75rem;
+  background: var(--cm-primary);
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .gallery {
+    padding-block: 3rem;
+  }
+  :host {
+    --deck-stage-h: 25rem;
+    --peek: 0.875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide,
+  .deck__dot,
+  .deck__arrow {
+    transition: none;
+  }
+}
